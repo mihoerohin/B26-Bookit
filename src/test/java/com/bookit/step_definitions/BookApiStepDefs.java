@@ -1,7 +1,9 @@
 package com.bookit.step_definitions;
 
+import com.bookit.pages.LogInPage;
 import com.bookit.utilities.BookItApiUtil;
 import com.bookit.utilities.ConfigurationReader;
+import com.bookit.utilities.Driver;
 import com.bookit.utilities.Environment;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -80,5 +82,24 @@ public class BookApiStepDefs {
         Map<String, ?> responseMap = response.as(Map.class);
         assertEquals(expRole, responseMap.get("role"));
     }
+
+    @Given("User logged in to Bookit app as teacher role")
+    public void user_logged_in_to_Bookit_app_as_teacher_role() {
+        //goto login page
+        Driver.getDriver().get(Environment.URL);
+        LogInPage logInPage = new LogInPage();
+        logInPage.login(Environment.TEACHER_EMAIL, Environment.TEACHER_PASSWORD);
+    }
+
+    @Given("User is on self page")
+    public void user_is_on_self_page() {
+
+    }
+
+    @Then("User should see same info on UI and API")
+    public void user_should_see_same_info_on_UI_and_API() {
+
+    }
+
 
 }
