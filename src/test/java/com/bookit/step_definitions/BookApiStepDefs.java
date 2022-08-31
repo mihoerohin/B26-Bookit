@@ -1,6 +1,7 @@
 package com.bookit.step_definitions;
 
 import com.bookit.pages.LogInPage;
+import com.bookit.pages.MapPage;
 import com.bookit.utilities.BookItApiUtil;
 import com.bookit.utilities.ConfigurationReader;
 import com.bookit.utilities.Driver;
@@ -89,11 +90,14 @@ public class BookApiStepDefs {
         Driver.getDriver().get(Environment.URL);
         LogInPage logInPage = new LogInPage();
         logInPage.login(Environment.TEACHER_EMAIL, Environment.TEACHER_PASSWORD);
+        //TODO: add explicit wait for url change
+        //assertTrue(Driver.getDriver().getCurrentUrl().endsWith("map"));
     }
 
     @Given("User is on self page")
     public void user_is_on_self_page() {
-
+        MapPage mapPage = new MapPage();
+        mapPage.gotoSelfPage();
     }
 
     @Then("User should see same info on UI and API")
