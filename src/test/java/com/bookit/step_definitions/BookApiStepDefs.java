@@ -2,6 +2,7 @@ package com.bookit.step_definitions;
 
 import com.bookit.pages.LogInPage;
 import com.bookit.pages.MapPage;
+import com.bookit.pages.SelfPage;
 import com.bookit.utilities.BookItApiUtil;
 import com.bookit.utilities.ConfigurationReader;
 import com.bookit.utilities.Driver;
@@ -14,11 +15,14 @@ import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 import static io.restassured.RestAssured.*;
 import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BookApiStepDefs {
 
@@ -102,8 +106,21 @@ public class BookApiStepDefs {
 
     @Then("User should see same info on UI and API")
     public void user_should_see_same_info_on_UI_and_API() {
+        SelfPage selfPage = new SelfPage();
+        String fullName = selfPage.fullName.getText();
+        String role = selfPage.role.getText();
+
+        Map<String, String> uiUserDataMap = new HashMap<>();
+        uiUserDataMap.put("role", role);
+        String[] name = fullName.split(" "); //[0] = Firstname, [1] = Lastname
+        uiUserDataMap.put("firstName", name[0]);
+        uiUserDataMap.put("lastName", name[1]);
+
+        System.out.println("uiUserDataMap = " + uiUserDataMap);
+
+        Map<String, ?> responseMap = response.as(Map.class);
+        responseMap.remove("id");//delete id to compare with ui
+        assertThat(uiUserDataMap, equalTo(responseMap));
 
     }
-
-
 }
