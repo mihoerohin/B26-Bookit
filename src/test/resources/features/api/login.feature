@@ -8,7 +8,7 @@ Feature: BookIt API login verifications
     And content type is "application/json"
     And role is "teacher"
 
-  @ui
+  @ui #API -> UI
   Scenario: verify user details with ui and api
     Given User logged in to Bookit api as teacher role
     And User sends GET request to "/api/users/me"
