@@ -175,6 +175,10 @@ public class BookApiStepDefs {
         String sql = "SELECT * FROM users WHERE id = " + newStudentId;
         Map<String, Object> dbStudentMap = DBUtils.getRowMap(sql);
         System.out.println("dbStudentMap = " + dbStudentMap);
+
+        assertThat(newRecordMap.get("first-name"), equalTo(dbStudentMap.get("firstname")));
+        assertThat(newRecordMap.get("last-name"), equalTo(dbStudentMap.get("lastname")));
+       // assertThat();
     }
 
     @Then("User should able to login bookit app on ui")
