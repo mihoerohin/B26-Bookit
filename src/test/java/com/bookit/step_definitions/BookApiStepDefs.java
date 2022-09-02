@@ -191,6 +191,7 @@ public class BookApiStepDefs {
 
     @Then("User should able to login bookit app on ui")
     public void user_should_able_to_login_bookit_app_on_ui() {
+        Driver.getDriver().get(Environment.URL);
         LogInPage logInPage = new LogInPage();
         logInPage.login(newRecordMap.get("email"), newRecordMap.get("password"));
         MapPage mapPage = new MapPage();
