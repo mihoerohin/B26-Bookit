@@ -1,11 +1,13 @@
+@ui @db
 Feature: Add new student
   @add_student
+
   Scenario: Add new student and verify status code 201
     Given User logged in to Bookit api as teacher role
     When Users sends POST request to "/api/students/student" with following info:
       | first-name      | harold              |
       | last-name       | finch               |
-      | email           | haroldsEmail78945@gmail.com  |
+      | email           | harolds1Email78945@gmail.com  |
       | password        | abc123              |
       | role            | student-team-leader |
       | campus-location | VA                  |

@@ -4,6 +4,7 @@ import com.bookit.pages.LogInPage;
 import com.bookit.pages.MapPage;
 import com.bookit.pages.SelfPage;
 import com.bookit.utilities.*;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -134,6 +135,12 @@ public class BookApiStepDefs {
 
     @When("Users sends POST request to {string} with following info:") ///api/students/student
     public void users_sends_POST_request_to_with_following_info(String endpoint, Map<String, String> dataMap) {
+//       TODO Faker faker = new Faker();
+//        String randomEmail = faker.internet().emailAddress();
+//        if (dataMap.containsKey("email")) {
+//            dataMap.replace("email", randomEmail);
+//            System.out.println("randomEmail = " + randomEmail);
+//        }
         response =given().accept(ContentType.JSON)
                 .and().queryParams(dataMap)
                 .and().header("Authorization", accessToken)
@@ -178,12 +185,16 @@ public class BookApiStepDefs {
 
         assertThat(newRecordMap.get("first-name"), equalTo(dbStudentMap.get("firstname")));
         assertThat(newRecordMap.get("last-name"), equalTo(dbStudentMap.get("lastname")));
-       // assertThat();
+        assertThat(newRecordMap.get("role"), equalTo(dbStudentMap.get("role")));
+        assertThat(newRecordMap.get("email"), equalTo(dbStudentMap.get("email")));
     }
 
     @Then("User should able to login bookit app on ui")
     public void user_should_able_to_login_bookit_app_on_ui() {
-
+        LogInPage logInPage = new LogInPage();
+        logInPage.login(newRecordMap.get("email"), newRecordMap.get("password"));
+        MapPage mapPage = new MapPage();
+        assertThat(mapPage.myLink.isDisplayed(), is(true));
     }
 
     /**
