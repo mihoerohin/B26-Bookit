@@ -28,6 +28,7 @@ public class BookApiStepDefs {
     String baseUrl = Environment.BASE_URL;
     String accessToken;
     Response response;
+    //this map is used to share data between steps
     Map<String, String> newRecordMap;
 
     @Given("User logged in to Bookit api as teacher role")
@@ -131,14 +132,15 @@ public class BookApiStepDefs {
      }
      */
 
-    @When("Users sends POST request to {string} with following info:")
-    public void users_sends_POST_request_to_with_following_info(String endpoint, Map<String, String> teamInfo) {
+    @When("Users sends POST request to {string} with following info:") ///api/students/student
+    public void users_sends_POST_request_to_with_following_info(String endpoint, Map<String, String> dataMap) {
         response =given().accept(ContentType.JSON)
-                .and().queryParams(teamInfo)
+                .and().queryParams(dataMap)
                 .and().header("Authorization", accessToken)
                 .when().post(baseUrl + endpoint);
         response.prettyPrint();
-        newRecordMap = teamInfo;
+        //store into newRecordMap so that we can use for validation in next step
+        this.newRecordMap = dataMap;
     }
 
     @Then("Database should persist same team info")
@@ -164,6 +166,33 @@ public class BookApiStepDefs {
                 .and().pathParam("id", teamId)
                 .when().delete(baseUrl + "/api/teams/{id}")
                 .then().log().all();
+    }
+
+    @Then("Database should contain same student info")
+    public void database_should_contain_same_student_info() {
+
+    }
+
+    @Then("User should able to login bookit app on ui")
+    public void user_should_able_to_login_bookit_app_on_ui() {
+
+    }
+
+    /**
+     {
+     "entryiId": 15379,
+     "entryType": "Student",
+     "message": "user harold finch has been added to database."
+     }
+     */
+    @Then("User deletes previously created student")
+    public void user_deletes_previously_created_student() {
+        int newStudentId = response.path("entryiId");
+        given().accept(ContentType.JSON)
+                .and().header("Authorization",accessToken)
+                .and().pathParam("id", newStudentId)
+                .when().delete(baseUrl + "/api/students/{id}")
+                .then().statusCode(204).log().all();
     }
 
 }
