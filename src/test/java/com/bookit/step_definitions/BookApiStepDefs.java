@@ -171,6 +171,10 @@ public class BookApiStepDefs {
     @Then("Database should contain same student info")
     public void database_should_contain_same_student_info() {
 
+        int newStudentId = response.path("entryiId");
+        String sql = "SELECT * FROM users WHERE id = " + newStudentId;
+        Map<String, Object> dbStudentMap = DBUtils.getRowMap(sql);
+        System.out.println("dbStudentMap = " + dbStudentMap);
     }
 
     @Then("User should able to login bookit app on ui")
