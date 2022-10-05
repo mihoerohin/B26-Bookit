@@ -8,12 +8,10 @@ import java.util.Map;
 public class SelfPage extends BasePage {
 
     @FindBy(xpath = "//p[.='name']/preceding-sibling::p")
-    public WebElement fullName;
+    public WebElement fullName;   ////////////////////////
 
     @FindBy(xpath = "//p[.='role']/preceding-sibling::p")
-    public WebElement role;
+    public WebElement role; ////////////////////
 
-//    public Map<String, String> getUserInfo() {
-//
-//    }
+
 }
