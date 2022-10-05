@@ -13,9 +13,6 @@ public class LogInPage extends BasePage {
     @FindBy(xpath = "//button[.='sign in']")
     public WebElement singInBtn;
 
-    @FindBy(xpath = "//button[.='sign in']")
-    public WebElement qqqsingInBtn;
-
     public void login(String userEmail, String userPassword) {
         email.sendKeys(userEmail);
         password.sendKeys(userPassword);
