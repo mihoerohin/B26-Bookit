@@ -10,8 +10,8 @@ public class MapPage extends BasePage {
     @FindBy(linkText = "my")
     public WebElement myLink;
 
-    @FindBy(linkText = "self")
-    public WebElement selfLink;
+    @FindBy(linkText = "self")  /////////////////////////////
+    public WebElement selfLink; ///////////////////////////////
 
     public void gotoSelfPage() {
         Actions actions = new Actions(Driver.getDriver());
