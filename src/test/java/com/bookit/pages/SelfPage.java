@@ -10,6 +10,10 @@ public class SelfPage extends BasePage {
     @FindBy(xpath = "//p[.='name']/preceding-sibling::p")
     public WebElement fullName;
 
+    @FindBy(xpath = "//p[.='nameqqq']/preceding-sibling::p")
+    public WebElement qqqfullName;
+
+
     @FindBy(xpath = "//p[.='role']/preceding-sibling::p")
     public WebElement role;
 
